@@ -21,5 +21,7 @@ Dieses Repository wird für ein studentisches Projekt verwendet:
 - Wiki dokumentiert Problem, Entscheidungen, Fortschritt und Ergebnis.
 - Wiki-Inhalte sind kundenorientiert und für externe Dritte ohne Vorwissen lesbar.
 - In Wiki-Seiten keine Meta-Informationen zum KI-Einsatz, zu Agenten oder zum internen Entstehungsprozess aufnehmen.
+- Wiki-Artefakte orientieren sich implizit am Reifefortschritt der Essence Alphas, ohne Essence- oder Methodenbegriffe im Wiki explizit auszuweisen.
+- Wiki-Artefakte werden so strukturiert, dass sie sowohl für Menschen (schnell erfassbar) als auch für Agenten (eindeutig auswertbar) nützlich sind.
 - `agent-workbench/` hält Plan, offene Fragen, Entscheidungen und Reviews.
 - Code-Änderungen bleiben mit Wiki und Projektplan konsistent.
