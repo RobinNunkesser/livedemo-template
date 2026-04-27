@@ -7,8 +7,8 @@ description: "Documentation and wiki-related instructions"
 
 - Dokumentation muss kurz, konkret und überprüfbar sein.
 - Entscheidungen und Trade-offs explizit machen.
-- Bei KI-Einsatz immer kurz dokumentieren:
-  - Tool
-  - Wofür verwendet
-  - Wie verifiziert
+- Wiki-Seiten sind konsequent kundenorientiert zu schreiben und müssen für externe Dritte ohne Projektkontext verständlich sein.
+- Keine Meta-Informationen zur Entstehung der Inhalte in Wiki-Seiten (z. B. KI-Einsatz, Agenten-Workflow, interne Arbeitsprotokolle).
+- Keine Hinweise auf verwendete Tools, Prompts oder interne Kollaborationsabläufe in Wiki-Seiten.
+- Fokus in Wiki-Seiten: Produktnutzen, Anforderungen, Entscheidungen, Ergebnisse und nachvollziehbare fachliche Begründungen.
 - Keine erfundenen Quellen, Zahlen oder Ergebnisse.

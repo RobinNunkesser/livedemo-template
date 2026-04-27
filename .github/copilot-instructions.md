@@ -19,5 +19,7 @@ Dieses Repository wird für ein studentisches Projekt verwendet:
 ## Structure expectations
 
 - Wiki dokumentiert Problem, Entscheidungen, Fortschritt und Ergebnis.
+- Wiki-Inhalte sind kundenorientiert und für externe Dritte ohne Vorwissen lesbar.
+- In Wiki-Seiten keine Meta-Informationen zum KI-Einsatz, zu Agenten oder zum internen Entstehungsprozess aufnehmen.
 - `agent-workbench/` hält Plan, offene Fragen, Entscheidungen und Reviews.
 - Code-Änderungen bleiben mit Wiki und Projektplan konsistent.

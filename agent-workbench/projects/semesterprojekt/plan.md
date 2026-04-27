@@ -2,7 +2,7 @@
 
 ## Ziel
 
-Kurze Beschreibung des Projektziels.
+Ziel ist eine App für Desktop und Mobilgeräte, die Studierende, Dozenten und Mitarbeiter an Hochschulen unterstützt. Geplante Bestandteile sind auf jeden Fall Mensaplan, Kursliste oder Stundenplan, Übungsaufgaben und Dozentenliste. 
 
 ## Scope
 
