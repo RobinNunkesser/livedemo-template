@@ -1,0 +1,29 @@
+[
+  {
+    "kurs": "Mathe 1",
+    "wochentag": "Montag",
+    "zeit": "08:00-09:30",
+    "raum": "Raum 101",
+    "dozent": "Dr. Müller",
+    "rhythmus": "wöchentlich",
+    "wochen": null
+  },
+  {
+    "kurs": "Programmieren",
+    "wochentag": "Dienstag",
+    "zeit": "10:00-11:30",
+    "raum": "Raum 202",
+    "dozent": "Prof. Schmidt",
+    "rhythmus": "14-täglich",
+    "wochen": "gKW"
+  },
+  {
+    "kurs": "Englisch",
+    "wochentag": "Mittwoch",
+    "zeit": "14:00-15:30",
+    "raum": "Raum 303",
+    "dozent": "Prof. Jones",
+    "rhythmus": "14-täglich",
+    "wochen": "uKW"
+  }
+]

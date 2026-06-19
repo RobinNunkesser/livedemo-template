@@ -1,0 +1,22 @@
+name: livedemo_template_mvp
+description: MVP skeleton for Sprint 1 (Mensaplan) - generated scaffold
+publish_to: none
+version: 0.1.0
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_riverpod: ^2.0.0
+  http: ^0.13.0
+  shared_preferences: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  # no bundled assets for scaffold; add assets here if needed

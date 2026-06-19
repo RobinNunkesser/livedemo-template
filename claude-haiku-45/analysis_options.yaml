@@ -1,0 +1,14 @@
+analysis_options:
+  enable-experiments:
+    - records
+    - patterns
+
+errors:
+  missing_required_param: error
+  missing_return: error
+  todo: ignore
+
+warnings:
+  camel_case_types: warning
+  camel_case_extensions: warning
+  library_names: warning

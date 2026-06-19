@@ -1,0 +1,54 @@
+# CampusFlow Stilrichtlinien
+
+## Code-Formatierung
+
+```bash
+# Format Code
+dart format .
+
+# Analyze Code
+flutter analyze
+```
+
+## Namenskonventionen
+
+- **Classes**: PascalCase (e.g., `MensaplanScreen`, `MealCard`)
+- **Variables/Functions**: camelCase (e.g., `getSelectedMeals`, `mealState`)
+- **Constants**: camelCase (e.g., `baseUrl`, `requestTimeout`)
+- **Privat Members**: Leading underscore (e.g., `_httpClient`, `_loadMeals()`)
+
+## Architektur-Regeln
+
+### Verboten (Layer-Verletzungen)
+
+❌ UI direkt auf HTTP/SQLite zugreifen
+❌ Provider direkt auf HTTP/SQLite zugreifen  
+❌ Data Layer nutzt Flutter-spezifische Code
+
+### Erlaubt (Proper Flow)
+
+✅ UI → Provider (State Orchestrierung)
+✅ Provider → Repository (Datenzugriff)
+✅ Repository → HTTP Client oder SQLite Client
+✅ Tests mock Repository/HTTP
+
+## Test-Struktur
+
+```dart
+test('description should be clear', () {
+  // Arrange
+  final data = ...;
+  
+  // Act
+  final result = someFunction(data);
+  
+  // Assert
+  expect(result, expectedValue);
+});
+```
+
+## Dokumentation
+
+- Classes: Dokumentiere öffentliche Interfaces
+- Functions: Beschreibe Parameter und Rückgabewert
+- Complex Logic: Inline-Kommentare für nicht-offensichtliche Logik

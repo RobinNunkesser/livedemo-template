@@ -1,0 +1,28 @@
+[
+  {
+    "id": "prof_schmidt_001",
+    "name": "Prof. Dr. Schmidt",
+    "titel": "Prof.",
+    "grad": "Dr.",
+    "fachbereich": "Informatik",
+    "email": "schmidt@uni.de",
+    "telefon": "+49 123 456789",
+    "buero": "Raum 201, Geb. A",
+    "sprechstunden": "Mo 10-12, Mi 14-16",
+    "kurse": ["Programmieren 1", "Algorithms"],
+    "fachgebiete": ["Softwareentwicklung", "Algorithmen"]
+  },
+  {
+    "id": "dr_mueller_001",
+    "name": "Dr. Müller",
+    "titel": "Dr.",
+    "grad": null,
+    "fachbereich": "Mathematik",
+    "email": "mueller@uni.de",
+    "telefon": "+49 123 987654",
+    "buero": "Raum 305, Geb. B",
+    "sprechstunden": "Di 09-11, Do 13-15",
+    "kurse": ["Mathe 1", "Mathe 2"],
+    "fachgebiete": ["Analysis", "Lineare Algebra"]
+  }
+]
