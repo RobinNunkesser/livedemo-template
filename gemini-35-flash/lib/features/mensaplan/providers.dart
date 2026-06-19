@@ -125,6 +125,7 @@ class MensaNotifier extends StateNotifier<MensaState> {
     state = state.copyWith(status: MensaScreenStatus.loading, errorMessage: null);
     try {
       final days = await _repository.getDays(canteenId);
+      if (!mounted) return;
       final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
       final todayDay = days.firstWhere(
@@ -138,6 +139,7 @@ class MensaNotifier extends StateNotifier<MensaState> {
       }
 
       final meals = await _repository.getMeals(canteenId, todayStr);
+      if (!mounted) return;
       if (meals.isEmpty) {
         state = state.copyWith(status: MensaScreenStatus.empty, allMeals: [], filteredMeals: []);
       } else {
@@ -149,6 +151,7 @@ class MensaNotifier extends StateNotifier<MensaState> {
         );
       }
     } catch (e) {
+      if (!mounted) return;
       if (e is StateError && e.message == 'No day for today') {
         state = state.copyWith(status: MensaScreenStatus.empty, allMeals: [], filteredMeals: []);
       } else {
@@ -209,7 +212,7 @@ final mensaFilterProvider = StateNotifierProvider<MensaFilterNotifier, MensaFilt
 
 final mensaStateProvider = StateNotifierProvider<MensaNotifier, MensaState>((ref) {
   final repo = ref.watch(mensaRepositoryProvider);
-  final filter = ref.watch(mensaFilterProvider);
+  final filter = ref.read(mensaFilterProvider);
   final notifier = MensaNotifier(repo, filter);
 
   ref.listen<MensaFilter>(mensaFilterProvider, (previous, next) {

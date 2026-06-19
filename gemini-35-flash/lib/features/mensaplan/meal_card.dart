@@ -30,9 +30,12 @@ class MealCard extends StatelessWidget {
         break;
       default:
         badgeBg = Colors.orange.shade100;
-        badgeFg = Colors.orange.shade900;
+        badgeFg = Colors.deepOrange.shade900;
     }
 
+    final semanticsLabel = '${meal.name}. Kategorie: ${meal.dietaryType} (${meal.category}). '
+        'Preis für Studierende: ${meal.studentPrice.toStringAsFixed(2)} Euro, für Bedienstete: ${meal.employeePrice.toStringAsFixed(2)} Euro.'
+        '${meal.allergens.isNotEmpty ? " Enthält Allergene: ${meal.allergens.join(', ')}." : ""}';
     final priceText = 'Stud.: ${meal.studentPrice.toStringAsFixed(2)} € · Bed.: ${meal.employeePrice.toStringAsFixed(2)} €';
 
     return Card(
@@ -43,9 +46,12 @@ class MealCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+        child: Semantics(
+          label: semanticsLabel,
+          excludeSemantics: true,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
             // Image / Placeholder Section
             if (meal.imageUrl != null)
               Image.network(
@@ -167,8 +173,9 @@ class MealCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildPlaceholder() {
     return Container(

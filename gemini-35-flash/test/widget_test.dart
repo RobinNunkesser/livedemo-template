@@ -1,30 +1,56 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:campusflow/main.dart';
+import 'package:campusflow/data/providers.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  setUpAll(() async {
+    await initializeDateFormatting('de_DE', null);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('Main navigation shell tab switching test', (WidgetTester tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
+        child: const CampusFlowApp(),
+      ),
+    );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify it starts on Stundenplan Screen
+    expect(find.text('Stundenplan'), findsWidgets);
+    expect(find.text('Dieser Bereich befindet sich noch in der Planung.'), findsOneWidget);
+
+    // Switch to Mensaplan Tab (represented by restaurant icon/label)
+    final mensaTab = find.text('Mensaplan');
+    expect(mensaTab, findsOneWidget);
+    await tester.tap(mensaTab);
+    await tester.pumpAndSettle();
+
+    // Verify Mensaplan screen is visible
+    expect(find.text('Keine Filter aktiv'), findsOneWidget);
+
+    // Switch to Aufgaben Tab
+    final tasksTab = find.text('Aufgaben');
+    expect(tasksTab, findsOneWidget);
+    await tester.tap(tasksTab);
+    await tester.pumpAndSettle();
+    
+    expect(find.text('Übungsaufgaben'), findsWidgets);
+
+    // Switch to Dozenten Tab
+    final lecturersTab = find.text('Dozenten');
+    expect(lecturersTab, findsOneWidget);
+    await tester.tap(lecturersTab);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dozentenliste'), findsWidgets);
   });
 }

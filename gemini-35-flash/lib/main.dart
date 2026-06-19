@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'data/providers.dart';
 import 'features/stundenplan/stundenplan_screen.dart';
@@ -10,6 +11,7 @@ import 'features/dozentenliste/dozenten_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('de_DE', null);
   
   // Pre-initialize SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -37,7 +39,7 @@ class CampusFlowApp extends StatelessWidget {
           seedColor: const Color(0xFF1E3A8A), // Modern navy blue
           brightness: Brightness.light,
         ),
-        cardTheme: const CardTheme(
+        cardTheme: const CardThemeData(
           elevation: 2,
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
@@ -48,7 +50,7 @@ class CampusFlowApp extends StatelessWidget {
           seedColor: const Color(0xFF1E3A8A),
           brightness: Brightness.dark,
         ),
-        cardTheme: const CardTheme(
+        cardTheme: const CardThemeData(
           elevation: 2,
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
