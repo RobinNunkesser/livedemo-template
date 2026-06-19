@@ -1,0 +1,43 @@
+# -----------------------------
+# Ignored by convention for this workspace
+# -----------------------------
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Dart / Flutter
+build/
+.dart_tool/
+.pub/
+.flutter-plugins
+
+# Node
+node_modules/
+dist/
+npm-debug.log*
+
+# General logs
+*.log
+
+# Agent / Copilot workbench and runtime artifacts
+.mcp/
+.tsupgrader/
+.runtime-validation/
+agent-workbench/.cache/
+agent-workbench/runtime/
+playwright-report/
+.playwright/
+
+# Local secrets / env
+.env
+env.local
