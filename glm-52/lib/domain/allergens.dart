@@ -10,8 +10,11 @@ library;
 
 /// Ein Allergen oder eine Zusatzstoff-Kategorie mit Code und Klartext.
 class Allergen {
-  const Allergen(
-      {required this.code, required this.name, this.isAdditive = false});
+  const Allergen({
+    required this.code,
+    required this.name,
+    this.isAdditive = false,
+  });
 
   /// Code aus der API, z. B. "A" oder "1".
   final String code;

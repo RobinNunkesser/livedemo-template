@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// Fake-Repository mit festem Datenbestand für Provider-Tests.
 class FakeMensaRepository implements MensaRepository {
   FakeMensaRepository(this._day);
-  MensaDay _day;
+  final MensaDay _day;
 
   @override
   Future<MensaDay> getDay(String date) async => _day;
@@ -21,7 +21,7 @@ MensaDay _dayWith(List<Meal> meals) =>
 
 void main() {
   group('filteredMealsProvider', () {
-    test('Allergen-Filter blendet betroffene Gerichte aus (A4)', () {
+    test('Allergen-Filter blendet betroffene Gerichte aus (A4)', () async {
       final meals = [
         Meal(
           id: 1,
@@ -32,22 +32,27 @@ void main() {
         ),
         Meal(id: 2, name: 'Sauber', category: 'X', priceStudent: 2),
       ];
-      final container = ProviderContainer(overrides: [
-        mensaProvider.overrideWith(
-          (ref) => MensaNotifier(FakeMensaRepository(_dayWith(meals)))..load(),
-        ),
-        filterProvider.overrideWith(
-          (ref) => FilterNotifier(_InMemoryStorage())..setAllergens({'A'}),
-        ),
-      ]);
+      final container = ProviderContainer(
+        overrides: [
+          mensaProvider.overrideWith(
+            (ref) => MensaNotifier(FakeMensaRepository(_dayWith(meals))),
+          ),
+          filterProvider.overrideWith(
+            (ref) => FilterNotifier(_InMemoryStorage()),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await container.read(mensaProvider.notifier).load();
+      await container.read(filterProvider.notifier).setAllergens({'A'});
 
       final result = container.read(filteredMealsProvider);
       expect(result.length, 1);
       expect(result.first.name, 'Sauber');
-      container.dispose();
     });
 
-    test('Kategorie-Filter arbeitet inklusiv (A16)', () {
+    test('Kategorie-Filter arbeitet inklusiv (A16)', () async {
       final meals = [
         Meal(
           id: 1,
@@ -64,23 +69,29 @@ void main() {
           foodCategory: FoodCategory.fleisch,
         ),
       ];
-      final container = ProviderContainer(overrides: [
-        mensaProvider.overrideWith(
-          (ref) => MensaNotifier(FakeMensaRepository(_dayWith(meals)))..load(),
-        ),
-        filterProvider.overrideWith(
-          (ref) => FilterNotifier(_InMemoryStorage())
-            ..setCategories({FoodCategory.vegan.name}),
-        ),
-      ]);
+      final container = ProviderContainer(
+        overrides: [
+          mensaProvider.overrideWith(
+            (ref) => MensaNotifier(FakeMensaRepository(_dayWith(meals))),
+          ),
+          filterProvider.overrideWith(
+            (ref) => FilterNotifier(_InMemoryStorage()),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await container.read(mensaProvider.notifier).load();
+      await container
+          .read(filterProvider.notifier)
+          .setCategories({FoodCategory.vegan.name});
 
       final result = container.read(filteredMealsProvider);
       expect(result.length, 1);
       expect(result.first.foodCategory, FoodCategory.vegan);
-      container.dispose();
     });
 
-    test('Kombinierte Filter mit AND-Logik (A12)', () {
+    test('Kombinierte Filter mit AND-Logik (A12)', () async {
       // Vegan UND kein Soja -> nur "Sauber" überlebt.
       final meals = [
         Meal(
@@ -106,21 +117,27 @@ void main() {
           foodCategory: FoodCategory.fleisch,
         ),
       ];
-      final container = ProviderContainer(overrides: [
-        mensaProvider.overrideWith(
-          (ref) => MensaNotifier(FakeMensaRepository(_dayWith(meals)))..load(),
-        ),
-        filterProvider.overrideWith(
-          (ref) => FilterNotifier(_InMemoryStorage())
-            ..setCategories({FoodCategory.vegan.name})
-            ..setAllergens({'F'}),
-        ),
-      ]);
+      final container = ProviderContainer(
+        overrides: [
+          mensaProvider.overrideWith(
+            (ref) => MensaNotifier(FakeMensaRepository(_dayWith(meals))),
+          ),
+          filterProvider.overrideWith(
+            (ref) => FilterNotifier(_InMemoryStorage()),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await container.read(mensaProvider.notifier).load();
+      await container
+          .read(filterProvider.notifier)
+          .setCategories({FoodCategory.vegan.name});
+      await container.read(filterProvider.notifier).setAllergens({'F'});
 
       final result = container.read(filteredMealsProvider);
       expect(result.length, 1);
       expect(result.first.name, 'Vegan sauber');
-      container.dispose();
     });
   });
 }

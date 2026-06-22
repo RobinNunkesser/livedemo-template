@@ -27,26 +27,34 @@ final filterStorageProvider = FutureProvider<FilterStorage>((ref) async {
 /// Verwaltet den aktiven Filter-Zustand und persistiert Änderungen (A14).
 class FilterNotifier extends StateNotifier<FilterState> {
   FilterNotifier(this._storage) : super(const FilterState()) {
-    _loadInitial();
+    _initFuture = _loadInitial();
   }
 
   final FilterStorage _storage;
+  late final Future<void> _initFuture;
 
   Future<void> _loadInitial() async {
     state = await _storage.load();
   }
 
+  /// Stellt sicher, dass das initiale Laden abgeschlossen ist, bevor
+  /// explizite Änderungen den Zustand überschreiben (Race Condition).
+  Future<void> _ensureInitialized() => _initFuture;
+
   Future<void> setAllergens(Set<String> codes) async {
+    await _ensureInitialized();
     state = state.copyWith(hiddenAllergens: codes);
     await _storage.save(state);
   }
 
   Future<void> setCategories(Set<String> codes) async {
+    await _ensureInitialized();
     state = state.copyWith(selectedCategories: codes);
     await _storage.save(state);
   }
 
   Future<void> reset() async {
+    await _ensureInitialized();
     state = const FilterState();
     await _storage.save(state);
   }
@@ -83,12 +91,12 @@ class MensaLoading extends MensaState {
 }
 
 class MensaData extends MensaState {
-  MensaData(this.day);
+  const MensaData(this.day);
   final MensaDay day;
 }
 
 class MensaError extends MensaState {
-  MensaError(this.message);
+  const MensaError(this.message);
   final String message;
 }
 

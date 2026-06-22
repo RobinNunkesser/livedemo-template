@@ -20,3 +20,8 @@ build/
 android/.gradle/
 ios/Pods/
 ios/Podfile.lock
+
+# macOS
+macos/Flutter/ephemeral/
+macos/Pods/
+macos/Podfile.lock

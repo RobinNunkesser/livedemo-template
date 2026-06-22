@@ -30,17 +30,21 @@ class _StubRepository implements MensaRepository {
 
 void main() {
   testWidgets('Fehlerzustand zeigt Neu-laden-Button (A8)', (tester) async {
-    final container = ProviderContainer(overrides: [
-      mensaProvider.overrideWith(
-        (ref) =>
-            MensaNotifier(_StubRepository(const MensaError('fail')))..load(),
-      ),
-    ]);
+    final container = ProviderContainer(
+      overrides: [
+        mensaProvider.overrideWith(
+          (ref) =>
+              MensaNotifier(_StubRepository(const MensaError('fail')))..load(),
+        ),
+      ],
+    );
 
-    await tester.pumpWidget(UncontrolledProviderScope(
-      container: container,
-      child: const MaterialApp(home: MensaplanScreen()),
-    ));
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MaterialApp(home: MensaplanScreen()),
+      ),
+    );
     await tester.pump();
 
     // Nach dem asynchronen load() ist der Fehler sichtbar.
@@ -52,16 +56,20 @@ void main() {
   });
 
   testWidgets('Geschlossen-Zustand zeigt Hinweis (A7)', (tester) async {
-    final container = ProviderContainer(overrides: [
-      mensaProvider.overrideWith(
-        (ref) => MensaNotifier(_StubRepository(const MensaClosed()))..load(),
-      ),
-    ]);
+    final container = ProviderContainer(
+      overrides: [
+        mensaProvider.overrideWith(
+          (ref) => MensaNotifier(_StubRepository(const MensaClosed()))..load(),
+        ),
+      ],
+    );
 
-    await tester.pumpWidget(UncontrolledProviderScope(
-      container: container,
-      child: const MaterialApp(home: MensaplanScreen()),
-    ));
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MaterialApp(home: MensaplanScreen()),
+      ),
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('Mensa heute geschlossen'), findsOneWidget);
@@ -69,16 +77,20 @@ void main() {
   });
 
   testWidgets('Leerzustand zeigt Hinweis', (tester) async {
-    final container = ProviderContainer(overrides: [
-      mensaProvider.overrideWith(
-        (ref) => MensaNotifier(_StubRepository(const MensaEmpty()))..load(),
-      ),
-    ]);
+    final container = ProviderContainer(
+      overrides: [
+        mensaProvider.overrideWith(
+          (ref) => MensaNotifier(_StubRepository(const MensaEmpty()))..load(),
+        ),
+      ],
+    );
 
-    await tester.pumpWidget(UncontrolledProviderScope(
-      container: container,
-      child: const MaterialApp(home: MensaplanScreen()),
-    ));
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MaterialApp(home: MensaplanScreen()),
+      ),
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('Kein Angebot heute'), findsOneWidget);
@@ -98,16 +110,20 @@ void main() {
         ),
       ],
     );
-    final container = ProviderContainer(overrides: [
-      mensaProvider.overrideWith(
-        (ref) => MensaNotifier(_StubRepository(MensaData(day)))..load(),
-      ),
-    ]);
+    final container = ProviderContainer(
+      overrides: [
+        mensaProvider.overrideWith(
+          (ref) => MensaNotifier(_StubRepository(MensaData(day)))..load(),
+        ),
+      ],
+    );
 
-    await tester.pumpWidget(UncontrolledProviderScope(
-      container: container,
-      child: const MaterialApp(home: MensaplanScreen()),
-    ));
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MaterialApp(home: MensaplanScreen()),
+      ),
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('Testcurry'), findsOneWidget);

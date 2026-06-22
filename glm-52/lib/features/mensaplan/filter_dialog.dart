@@ -64,8 +64,10 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                 }).toList(),
               ),
               const SizedBox(height: 16),
-              Text('Allergene / Zusatzstoffe ausblenden',
-                  style: Theme.of(context).textTheme.titleSmall),
+              Text(
+                'Allergene / Zusatzstoffe ausblenden',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
               const SizedBox(height: 4),
               Wrap(
                 spacing: 6,
@@ -104,10 +106,10 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
         ),
         FilledButton(
           onPressed: () async {
+            final navigator = Navigator.of(context);
             final notifier = ref.read(filterProvider.notifier);
             await notifier.setAllergens(_allergens);
             await notifier.setCategories(_categories);
-            final navigator = Navigator.of(context);
             if (mounted) navigator.pop();
           },
           child: const Text('Anwenden'),

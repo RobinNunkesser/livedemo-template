@@ -138,18 +138,18 @@ void main() {
           'id': 1,
           'name': 'OK',
           'category': 'X',
-          'prices': {'Studierende': 1}
+          'prices': {'Studierende': 1},
         },
         {
           'id': 2,
           'name': '',
           'category': 'X',
-          'prices': {'Studierende': 1}
+          'prices': {'Studierende': 1},
         },
         {'id': 3, 'name': 'Kein Preis', 'category': 'X', 'prices': {}},
         {
           'category': 'X',
-          'prices': {'Studierende': 1}
+          'prices': {'Studierende': 1},
         },
       ]);
       final mock = MockClient((request) async {
@@ -182,8 +182,10 @@ void main() {
         return http.Response(_meals, 200);
       });
       final day = await _client(mock).getDay('2026-06-19');
-      expect(day.meals.first.imageUrl,
-          'https://bilderspeiseplan.example.de/1.jpg');
+      expect(
+        day.meals.first.imageUrl,
+        'https://bilderspeiseplan.example.de/1.jpg',
+      );
     });
   });
 }
