@@ -17,10 +17,8 @@ class MensaplanScreen extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => const FractionallySizedBox(
-        heightFactor: 0.85,
-        child: FilterDialog(),
-      ),
+      builder: (context) =>
+          const FractionallySizedBox(heightFactor: 0.85, child: FilterDialog()),
     );
   }
 
@@ -31,7 +29,10 @@ class MensaplanScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    final todayStr = DateFormat('EEEE, d. MMMM', 'de_DE').format(DateTime.now());
+    final todayStr = DateFormat(
+      'EEEE, d. MMMM',
+      'de_DE',
+    ).format(DateTime.now());
 
     // Build filter summary text
     final List<String> activeFilters = [];
@@ -42,7 +43,9 @@ class MensaplanScreen extends ConsumerWidget {
       activeFilters.add('${filter.avoidAllergens.length} Allergene gemieden');
     }
     if (filter.avoidAdditives.isNotEmpty) {
-      activeFilters.add('${filter.avoidAdditives.length} Zusatzstoffe gemieden');
+      activeFilters.add(
+        '${filter.avoidAdditives.length} Zusatzstoffe gemieden',
+      );
     }
 
     return Scaffold(
@@ -105,7 +108,10 @@ class MensaplanScreen extends ConsumerWidget {
                       ref.read(mensaFilterProvider.notifier).resetFilters();
                     },
                     style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       minimumSize: Size.zero,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
@@ -116,9 +122,7 @@ class MensaplanScreen extends ConsumerWidget {
           ),
 
           // Main Content
-          Expanded(
-            child: _buildBody(context, ref, state),
-          ),
+          Expanded(child: _buildBody(context, ref, state)),
         ],
       ),
     );
@@ -132,7 +136,9 @@ class MensaplanScreen extends ConsumerWidget {
       case MensaScreenStatus.error:
         return ErrorState(
           title: 'Fehler beim Laden',
-          message: state.errorMessage ?? 'Die Mensadaten konnten nicht abgerufen werden.',
+          message:
+              state.errorMessage ??
+              'Die Mensadaten konnten nicht abgerufen werden.',
           onRetry: () {
             ref.read(mensaStateProvider.notifier).loadMeals();
           },
@@ -141,7 +147,8 @@ class MensaplanScreen extends ConsumerWidget {
       case MensaScreenStatus.closed:
         return const EmptyState(
           title: 'Mensa heute geschlossen',
-          message: 'Die Mensa hat heute leider kein Angebot (z. B. am Wochenende oder Feiertag).',
+          message:
+              'Die Mensa hat heute leider kein Angebot (z. B. am Wochenende oder Feiertag).',
           icon: Icons.store_mall_directory_outlined,
         );
 
@@ -237,7 +244,8 @@ class MensaplanScreen extends ConsumerWidget {
                     meal.imageUrl!,
                     height: 200,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                    errorBuilder: (context, error, stackTrace) =>
+                        const SizedBox.shrink(),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -252,7 +260,10 @@ class MensaplanScreen extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -283,12 +294,16 @@ class MensaplanScreen extends ConsumerWidget {
               if (meal.allergens.isNotEmpty) ...[
                 Text(
                   'Allergene',
-                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   meal.allergens.join(', '),
-                  style: theme.textTheme.bodyMedium?.copyWith(color: Colors.orange.shade900),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.orange.shade900,
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],
@@ -297,12 +312,16 @@ class MensaplanScreen extends ConsumerWidget {
               if (meal.additives.isNotEmpty) ...[
                 Text(
                   'Zusatzstoffe',
-                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   meal.additives.join(', '),
-                  style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey.shade700),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade700,
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],
@@ -325,7 +344,12 @@ class MensaplanScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildPriceColumn(BuildContext context, String label, String price, Color textColor) {
+  Widget _buildPriceColumn(
+    BuildContext context,
+    String label,
+    String price,
+    Color textColor,
+  ) {
     final theme = Theme.of(context);
     return Column(
       children: [

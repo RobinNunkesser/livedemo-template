@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers.dart';
-import '../../domain/meal.dart';
 
 class FilterDialog extends ConsumerStatefulWidget {
   const FilterDialog({super.key});
@@ -166,7 +165,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   ),
                   Text(
                     'Gerichte mit ausgewählten Allergenen werden ausgeblendet.',
-                    style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey.shade600),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   ListView.builder(
@@ -206,7 +207,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   ),
                   Text(
                     'Gerichte mit ausgewählten Zusatzstoffen werden ausgeblendet.',
-                    style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey.shade600),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   ListView.builder(
